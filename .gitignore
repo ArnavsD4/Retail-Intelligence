@@ -1,0 +1,22 @@
+﻿# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Secrets
+.env
+.env.*
+
+# Raw and processed datasets
+data/raw/*
+data/processed/*
+
+# Generated reports
+reports/figures/*
+reports/*.csv
+
+# Editor and OS
+.vscode/
+.DS_Store
+Thumbs.db
