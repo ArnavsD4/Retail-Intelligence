@@ -76,6 +76,8 @@ retail-intelligence/
 ├── tests/
 └── data/
     └── raw/
+├── models/
+│   └── demand_model.joblib  # Generated locally
 ```
 
 ## Getting Started
@@ -112,7 +114,19 @@ Place the required Walmart dataset files in `data/raw/`:
 
 The raw dataset is excluded from Git. Obtain the Walmart Store Sales Forecasting dataset separately and place the files in the specified directory.
 
-### 5. Configure the LLM API
+### 5. Train the forecasting model
+
+The trained model artifact is excluded from Git. After placing the required dataset files in `data/raw/`, generate it locally:
+
+```powershell
+python src/train_model.py
+```
+
+This should create `models/demand_model.joblib`. Ensure the training script completes successfully before starting the backend.
+
+
+
+### 6. Configure the LLM API
 
 Create a local `.env` file in the project root and add your Groq API key:
 
@@ -122,7 +136,7 @@ GROQ_API_KEY=your_api_key_here
 
 Never commit `.env` or publish your API key. Some functionality may require a valid API key and may be subject to provider rate limits.
 
-### 6. Start the backend
+### 7. Start the backend
 
 ```powershell
 uvicorn api:app --reload
@@ -130,7 +144,7 @@ uvicorn api:app --reload
 
 API documentation: `http://127.0.0.1:8000/docs`
 
-### 7. Start the frontend
+### 8. Start the frontend
 
 Open a second terminal:
 
@@ -142,7 +156,7 @@ npm run dev
 
 Open the local URL printed by Vite, usually `http://localhost:5173`.
 
-### 8. Run the tests
+### 9. Run the tests
 
 From the project root:
 
@@ -150,7 +164,7 @@ From the project root:
 python -m pytest -q
 ```
 
-### 9. Run the MCP server
+### 10. Run the MCP server
 
 From the project root, with the virtual environment activated:
 
