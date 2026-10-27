@@ -9,6 +9,7 @@ from sklearn.impute import SimpleImputer
 from sklearn.metrics import mean_absolute_error, mean_squared_error
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OrdinalEncoder
+import joblib
 
 ROOT_DIR = Path(__file__).resolve().parent.parent
 RAW_DIR = ROOT_DIR / "data" / "raw"
@@ -137,5 +138,14 @@ print(f"WAPE: {wape:.2f}%")
 results = valid[["Store", "Dept", "Date", target]].copy()
 results["Prediction"] = predictions
 results.to_csv(REPORT_DIR / "validation_predictions.csv", index=False)
+
+# Save the trained model for reuse by the API and MCP tools
+MODEL_DIR = ROOT_DIR / "models"
+MODEL_DIR.mkdir(parents=True, exist_ok=True)
+
+model_path = MODEL_DIR / "demand_model.joblib"
+joblib.dump(model, model_path)
+
+print(f"Saved trained model to {model_path}")
 
 print("\nSaved predictions to reports/validation_predictions.csv")
